@@ -10,27 +10,44 @@ using ll = long long;
 using pi = pair<int, int>;
 using pll = pair<ll, ll>;
 
-/*const int N = 20 + 5;*/
-/*const int oo = 1e9 + 20;*/
-
 int main() {
 	ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
 
-	int t;
-	cin >> t;
+	freopen("convention.in", "r", stdin);
+	freopen("convention.out", "w", stdout);
+	
+	int n, m, c;
+	cin >> n >> m >> c;
 
-	while (t--) {
-		int n;
-		cin >> n;
+	vector<int> a(n);
+	for (auto &i: a) cin >> i;
+	sort(a.begin(), a.end());
 
-		vector<ll> a(n);
-		for (auto &i: a) cin >> i;
-		sort(a.begin(), a.end());
+	auto can = [&](int mid) -> bool {
+		int ptr = a[0];
 
-		map<ll, int> mp;
-		for (int i = (n - 1) / 2; i < n; i++) mp[a[i]] += 1;
-		cout << mp[a[(n - 1) / 2]] << el;
+		int buses = 1, cowsOnBus = 0;
+		for (int i = 0; i < n; i++) {
+			cowsOnBus += 1;
+
+			if (a[i] - ptr > mid || cowsOnBus > c) {
+				buses += 1, cowsOnBus = 1;
+				if (buses > m) return false;
+				ptr = a[i];
+			}
+		}
+
+		return true;
+	};
+	
+	int l = 0, r = a[n - 1] - a[0], ans = 0;
+	while (l <= r) {
+		int mid = (l + r) / 2;
+
+		if (can(mid)) r = mid - 1, ans = mid;
+		else l = mid + 1;
 	}
+	cout << ans << el;
 
 	return 0;
 }
