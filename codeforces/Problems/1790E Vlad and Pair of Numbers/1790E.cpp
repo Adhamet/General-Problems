@@ -12,7 +12,6 @@ using pll = pair<ll, ll>;
 
 /*const int N = 20 + 5;*/
 /*const int oo = 1e9 + 20;*/
-const int MOD = 1e9+7;
 
 int main() {
 	ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
@@ -21,21 +20,19 @@ int main() {
 	cin >> t;
 
 	while (t--) {
-		ll n;
-		cin >> n;
+		int x;
+		cin >> x;
 
-		vector<ll> a(n);
-		for (auto &i: a) cin >> i;
+		int a = x, b = 0;
+		for (int i = 30; i >= 0; i--) {
+			if (x & (1 << i)) continue;
 
-		ll sum = 0;
-		for (int i = 0; i < n; i++) {
-			for (int j = i + 1; j < n; j++) {
-				sum = (sum + a[i] * a[j]) % MOD;
+			if (2 * x - a - b >= (2 << i)) {
+				a += 1 << i, b += 1 << i;
 			}
 		}
-		
-		cout << sum / n << el;
-	}
 
-	return 0;
+		if (a + b == 2 * x && (a ^ b) == x) cout << a << " " << b << el;
+		else cout << -1 << el;
+	} 
 }
