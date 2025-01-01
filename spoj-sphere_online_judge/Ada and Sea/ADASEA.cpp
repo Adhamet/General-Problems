@@ -36,7 +36,7 @@ signed main() {
             }
         }
 
-		int islands = 0;
+	int islands = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (adjmtx[i][j] == '#' && !vis[i][j]) {
@@ -50,7 +50,7 @@ signed main() {
         if (islands == 0) {
             cout << 0 << el;
         } else {
-			int cells = n * m;
+	    int cells = n * m;
             int gcd = __gcd(islands, cells);
             int numerator = islands / gcd;
             int denominator = cells / gcd;
